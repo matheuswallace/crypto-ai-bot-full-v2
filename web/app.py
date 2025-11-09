@@ -1,4 +1,7 @@
 from flask import Flask, jsonify, render_template_string
+import sys, os
+# Garante que a pasta raiz do projeto está no caminho
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from model.predict import predict
 from data.binance_client import fetch_candles
 import os, threading, time

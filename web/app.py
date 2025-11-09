@@ -1,3 +1,5 @@
+# Importa o executor que roda em segundo plano
+from executor.executor_real import run_executor
 from flask import Flask, jsonify, render_template_string
 import sys, os
 # Garante que a pasta raiz do projeto está no caminho

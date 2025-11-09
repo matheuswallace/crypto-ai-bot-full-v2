@@ -20,10 +20,15 @@ def start_executor_background():
     t.start()
     print('Executor background thread started.')
 
-@app.before_first_request
-def startup():
-    # start background executor
-    start_executor_background()
+# Inicia o executor assim que o app começa (Flask 3.x não tem before_first_request)
+@app.before_request
+def start_executor_once():
+    if not getattr(app, "_executor_started", False):
+        executor_thread = threading.Thread(target=run_executor)
+        executor_thread.daemon = True
+        executor_thread.start()
+        app._executor_started = True
+
 
 @app.route('/')
 def index():
